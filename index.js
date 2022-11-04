@@ -14,7 +14,6 @@ const corsoption = {
 
 server.use(cors(corsoption))
 
-
 server.get("/fn_apagar/:data_inicio/:data_fim", async (req, res) => {
     try{
 
@@ -244,8 +243,6 @@ server.get("/fn_carteira_cobranca", async (req, res) => {
         res.send({ error: error.message });
     }
 })
-
-
 
 
 server.listen(8000);
