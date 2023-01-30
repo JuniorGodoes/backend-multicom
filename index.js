@@ -288,7 +288,7 @@ server.get("/vd_contratos", async (req, res) => {
                 query: '0',
                 oper: '>',
                 page: '1',
-                rp: '20',
+                rp: '100',
                 sortname: 'vd_contratos.id',
                 sortorder: 'desc'
             },
