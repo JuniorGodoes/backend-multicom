@@ -265,7 +265,7 @@ server.get("/cliente_contrato", async (req, res) => {
                 query: '0',
                 oper: '>',
                 page: '1',
-                rp: '20',
+                rp: '20000',
                 sortname: 'cliente_contrato.id',
                 sortorder: 'desc'
             },
