@@ -1,8 +1,8 @@
 const express = require('express')
 const server = express();
 const api = require('./src/api')
+const gas = require('./src/gas')
 const cors = require('cors');
-const { send } = require('process');
 
 
 server.use(express.json());
@@ -13,6 +13,17 @@ const corsoption = {
 }
 
 server.use(cors(corsoption))
+
+server.get("/gasolina", async (req, res) => {
+    try{
+
+        const { data } = await gas.get('/')
+
+        return res.send({ dados: data })
+    }catch(error){
+        res.send({ error: error.message });
+    }
+})
 
 server.get("/fn_apagar/:data_inicio/:data_fim", async (req, res) => {
     try{
@@ -43,9 +54,9 @@ server.get("/fn_areceber/:data_inicio/:data_fim", async (req, res) => {
         const { data } = await api.get('/fn_areceber', {
             data:
             {
-                qtype: "fn_areceber.Status",
+                qtype:"fn_areceber.Status",
                 query:"A",
-                oper: "=",
+                oper:"=",
                 page:"1",
                 rp:"50000",
                 sortname:"fn_areceber.id",
@@ -244,5 +255,27 @@ server.get("/fn_carteira_cobranca", async (req, res) => {
     }
 })
 
+server.get("/cliente_contrato", async (req, res) => {
+    try{
+
+        const { data } = await api.get('/cliente_contrato', {
+            data:
+            {
+                qtype: 'cliente_contrato.id',
+                query: '0',
+                oper: '>',
+                page: '1',
+                rp: '20',
+                sortname: 'cliente_contrato.id',
+                sortorder: 'desc'
+            },
+        })
+
+        return res.send({ dados: data })
+
+    }catch(error){
+        res.send({ error: error.message });
+    }
+})
 
 server.listen(8000);
