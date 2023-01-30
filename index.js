@@ -278,4 +278,27 @@ server.get("/cliente_contrato", async (req, res) => {
     }
 })
 
+server.get("/vd_contratos", async (req, res) => {
+    try{
+
+        const { data } = await api.get('/vd_contratos', {
+            data:
+            {
+                qtype: 'vd_contratos.id',
+                query: '0',
+                oper: '>',
+                page: '1',
+                rp: '20',
+                sortname: 'vd_contratos.id',
+                sortorder: 'desc'
+            },
+        })
+
+        return res.send({ dados: data })
+
+    }catch(error){
+        res.send({ error: error.message });
+    }
+})
+
 server.listen(8000);
